@@ -37,9 +37,29 @@ function calculateInvestment(data: InvestmentData): CalculationResult {
     }
 
     let total = initialAmount;
-    
-}
+    let totalContributions = 0;
+    let totalInterestEarned = 0;
 
+    const annualResults: InvestmentResult[] = [];
+
+    // For each year, apply the expected return rate to the current total,
+    // calculate the interest earned so far, add the annual contribution,
+    // and record the year's result (year label, total amount, contributions, interest earned).
+    for (let i = 0; i < duration; i++) {
+        total = total * (1+ expectedReturn);
+        totalInterestEarned = total - totalContributions - initialAmount;
+        totalContributions = totalContributions + annualContribution;
+        total = total + annualContribution;
+
+        annualResults.push({
+            year: `Year${i + 1}`,
+            totalAmount: total,
+            totalInterestEarned: totalInterestEarned,
+            totalContribution: totalContributions,
+        });
+    }
+    return annualResults;
+}
 
 // You can also write the type inline like this, but using a named type (InvestmentData) is preferred
 // because it avoids duplicating the type definition and makes the code easier to reuse and maintain.
