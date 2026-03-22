@@ -2,7 +2,40 @@
 
 ## What I learned
 
+### `toFixed(n)`
+Formats a number to `n` decimal places and returns it as a `string`. `toFixed(0)` rounds to a whole number.
+
+```ts
+(1234.567).toFixed(0); // "1235"
+(1234.567).toFixed(2); // "1234.57"
+```
+
 ## What was difficult
+
+### `for...of` vs `for...in`
+Easy to mix up, but they do completely different things.
+
+| | `for...of` | `for...in` |
+|---|---|---|
+| Yields | **values** | **keys / indices** |
+| Best for | arrays & iterables | objects |
+| Index type | — | `string` |
+
+```ts
+const results = [10, 20, 30];
+
+// for...of → gets each value
+for (const value of results) {
+    console.log(value); // 10, 20, 30
+}
+
+// for...in → gets each index as a string
+for (const i in results) {
+    console.log(i); // "0", "1", "2"
+}
+```
+
+Use `for...of` when iterating over array elements.
 
 ## Memo
 
