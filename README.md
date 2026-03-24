@@ -70,3 +70,17 @@ The fix is to use a union type like `InvestmentResult[] | string`.
 ### Function must always return a value
 If a function has a non-`undefined` return type, every code path must return something.
 A function body that ends without a `return` causes a TypeScript error (`2366`).
+
+### Type annotations work the same for custom types as for primitives
+Adding `: InvestmentData` is the same concept as `: number` or `: string` — it tells TypeScript what type the variable must be.
+Without the annotation, TypeScript infers the type from the assigned value, so missing fields won't cause an error at the definition site.
+With the annotation, TypeScript catches errors immediately where the object is defined.
+
+```ts
+// Without annotation — error shows up later, at the function call
+const data = { initialAmount: 1000 }; // missing fields, no error yet
+calculateInvestment(data); // ← error shows up here
+
+// With annotation — error shows up right away
+const data: InvestmentData = { initialAmount: 1000 }; // ← error here immediately
+```
